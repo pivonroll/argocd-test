@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gin-app-deployment
+  namespace: gin-app
+  labels:
+    app: gin-app-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gin-app
+  template:
+    metadata:
+      labels:
+        app: gin-app
+    spec:
+      containers:
+        - name: gin-app
+          image: gin-app
+          # pull image from minikube's docker registry
+          # to utilize this execute eval $(minikube -p minikube docker-env)
+          # after that build docker image - image will be placed in minikube's docker repository
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 8080
+          env:
+            - name: MONGO_DATABASE_URL
+              value: mongodb-service

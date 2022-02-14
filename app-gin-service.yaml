@@ -1,0 +1,19 @@
+# for running service type LoadBalancer you must execute
+# $ minikube service <load balancer service name>
+apiVersion: v1
+kind: Service
+metadata:
+  name: gin-app-service
+  namespace: gin-app
+spec:
+  # if you use NodePort on minikube, get the IP address of the minikube by running
+  # $ minikube ip - use IP:targetPort to access the app
+  # or
+  # $ kubectl get nodes -o wide - use the INTERNAL-IP:nodePort to access the app
+#  type: NodePort
+  selector:
+    app: gin-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

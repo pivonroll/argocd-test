@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongodb-service
+  namespace: gin-app
+spec:
+  type: ExternalName
+  externalName: host.minikube.internal
+  ports:
+    - port: 27017

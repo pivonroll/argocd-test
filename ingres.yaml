@@ -1,0 +1,19 @@
+# make sure to run $ minikube addons enable ingress
+# to enable ingress addon on minikube
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-host
+  namespace: gin-app
+spec:
+  rules:
+    - host: foo.bar.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: gin-app-service
+                port:
+                  number: 8080
+            pathType: Prefix
+            path: "/"
